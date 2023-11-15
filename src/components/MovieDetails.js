@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import { Loader } from "./Loader";
-import { KEY } from "../App";
+import { KEY } from "../App-v2";
 
 export function MovieDetails({
   selectedId,
@@ -9,7 +9,7 @@ export function MovieDetails({
   onAddWatched,
   watched,
 }) {
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
 
@@ -17,6 +17,7 @@ export function MovieDetails({
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
   )?.userRating;
+
   const {
     Title: title,
     Year: year,
@@ -30,6 +31,11 @@ export function MovieDetails({
     Genre: genre,
   } = movie;
 
+  // if (imdbRating > 8) [isTop, setIsTop] = useState(true);
+  // if (imdbRating > 8) return <p>Greatest ever</p>;
+
+  // const [avgRating, setAvgRating] = useState(0);
+
   function handleAdd() {
     const newWatchedMovie = {
       imdbID: selectedId,
@@ -42,6 +48,8 @@ export function MovieDetails({
     };
     onAddWatched(newWatchedMovie);
     onCloseMovie();
+    // setAvgRating(Number(imdbRating));
+    // setAvgRating((avgRating) => (avgRating + userRating) / 2);
   }
   useEffect(
     function () {
@@ -111,6 +119,7 @@ export function MovieDetails({
               </p>
             </div>
           </header>
+
 
           <section>
             <div className="rating">
